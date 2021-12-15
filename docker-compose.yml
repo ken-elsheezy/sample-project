@@ -1,15 +1,12 @@
 version: "3.7"
 services:
   appservice:
-    #build:
-     # context: ./
-     # dockerfile: Dockerfile
     image: chadubab/sample-project
     container_name: sample-project
     restart: unless-stopped
     working_dir: /var/www/html/
     volumes:
-      - ./:/var/www/html
+      - ./:/var/www/html/
     environment:
       APP_NAME: ${APP_NAME}
       APP_ENV: ${APP_ENV}
@@ -25,26 +22,27 @@ services:
       SESSION_DRIVER: ${SESSION_DRIVER}
       SESSION_LIFETIME: ${SESSION_LIFETIME}
     depends_on:
-      - mysqlservice
-      - nginxservice
+      - mysqldb
     networks:
       - sample-project-docker-network
 
-  mysqlservice:
+  mysqldb:
     image: mysql:5.6
     container_name: sample-project-mysql
     restart: unless-stopped
     ports:
       - 3306:3306
     environment:
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
       MYSQL_DATABASE: ${DB_DATABASE}
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
-      MYSQL_PASSWORD: ${DB_PASSWORD}
-      MYSQL_USER: ${DB_USERNAME}
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysqldb
     networks:
       - sample-project-docker-network
 
-  nginxservice:
+  nginx:
     image: nginx:alpine
     container_name: sample-project-nginx
     restart: unless-stopped

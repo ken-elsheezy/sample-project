@@ -1,0 +1,53 @@
+version: "3.7"
+services:
+  app:
+    image: chadubab/sample-project
+    container_name: sample-project
+    restart: unless-stopped
+    environment:
+      APP_NAME: ${APP_NAME}
+      APP_ENV: ${APP_ENV}
+      APP_KEY: ${APP_KEY}
+      APP_DEBUG: ${APP_DEBUG}
+      APP_URL: ${APP_URL}
+      LOG_CHANNEL: ${LOG_CHANNEL}
+      LOG_LEVEL: ${LOG_LEVEL}
+      BROADCAST_DRIVER: ${BROADCAST_DRIVER}
+      CACHE_DRIVER: ${CACHE_DRIVER}
+      FILESYSTEM_DRIVER: ${FILESYSTEM_DRIVER}
+      QUEUE_CONNECTION: ${QUEUE_CONNECTION}
+      SESSION_DRIVER: ${SESSION_DRIVER}
+      SESSION_LIFETIME: ${SESSION_LIFETIME}
+    networks:
+      - sample-project-docker-network
+
+  mysqlservice:
+    image: mysql:5.6
+    container_name: sample-project-mysql
+    restart: unless-stopped
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_USER: ${DB_USERNAME}
+    networks:
+      - sample-project-docker-network
+
+  nginx:
+    image: nginx:alpine
+    container_name: sample-project-nginx
+    restart: unless-stopped
+    ports:
+      - 8002:80
+    volumes:
+      - ./:/var/www
+      - ./docker-compose/nginx:/etc/nginx/conf.d/
+    networks:
+      - sample-project-docker-network
+
+
+networks:
+  sample-project-docker-network:
+    driver: bridge

@@ -7,6 +7,8 @@ services:
     working_dir: /var/www/html/
     volumes:
       - ./:/var/www/html/
+    ports:
+      - 8020:8000
     environment:
       APP_NAME: ${APP_NAME}
       APP_ENV: ${APP_ENV}
@@ -39,18 +41,6 @@ services:
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
       SERVICE_TAGS: dev
       SERVICE_NAME: mysqldb
-    networks:
-      - sample-project-docker-network
-
-  nginx:
-    image: nginx:alpine
-    container_name: sample-project-nginx
-    restart: unless-stopped
-    ports:
-      - 8020:80
-    volumes:
-      - ./:/var/www/html
-      - ./docker-compose/nginx:/etc/nginx/conf.d/
     networks:
       - sample-project-docker-network
 

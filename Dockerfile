@@ -21,3 +21,9 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # Set working directory
 WORKDIR /var/www
+
+# Bundle app source
+COPY . .
+
+EXPOSE 8000
+CMD ["php", "artisan", "serve"]

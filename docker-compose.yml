@@ -1,5 +1,27 @@
 version: "3.7"
 services:
+  composerinstall:
+    image: chadubab/sample-project
+    container_name: sample-project-composer-install
+    working_dir: /var/www/html/
+    command: composer install
+    volumes:
+      - ./:/var/www/html/
+    networks:
+      - sample-project-docker-network
+
+  keygen:
+    image: chadubab/sample-project
+    container_name: sample-project-keygen
+    working_dir: /var/www/html/
+    command: php artisan key:generate
+    volumes:
+      - ./:/var/www/html/
+    depends_on:
+      - composerinstall
+    networks:
+      - sample-project-docker-network
+
   appservice:
     image: chadubab/sample-project
     container_name: sample-project
@@ -24,23 +46,29 @@ services:
       SESSION_DRIVER: ${SESSION_DRIVER}
       SESSION_LIFETIME: ${SESSION_LIFETIME}
     depends_on:
-      - mysqldb
+      - database
+    links:
+      - database
     networks:
       - sample-project-docker-network
 
-  mysqldb:
-    image: mysql:5.6
-    container_name: sample-project-mysql
+  database:
+    image: mysql:5.7
+    container_name: database
     restart: unless-stopped
     ports:
       - 3306:3306
     environment:
-      MYSQL_USER: ${DB_USERNAME}
-      MYSQL_PASSWORD: ${DB_PASSWORD}
       MYSQL_DATABASE: ${DB_DATABASE}
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_USER: user
       SERVICE_TAGS: dev
-      SERVICE_NAME: mysqldb
+      SERVICE_NAME: database
+    expose:
+      - 3306
+    depends_on:
+      - composerinstall
     networks:
       - sample-project-docker-network
 

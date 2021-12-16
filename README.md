@@ -13,9 +13,11 @@ folder of your choice.
 
 ### 1.2 Services
 
-The docker-compose.yml file essentially contains 2 services
-- appservice: this refers to the services that runs the Laravel application. It exposes port 8020 to the host machine.
-- mysqldb: this is the MySQL database service that persists the data for the Laravel application. It exposes port 3306 to the host machine.
+The docker-compose.yml file essentially contains 4 services
+- composerinstall: This service installs dependencies via the composer package manager
+- keygen: This service will generate the APP_KEY environment variable required by Laravel to perform hashes e.t.c
+- appservice: This is the Main application service that runs the Laravel application. It exposes port 8020 to the host machine.
+- database: This is the MySQL database service that persists the data for the Laravel application. It exposes port 3306 to the host machine.
 
 
 ### 1.3 Procedure
@@ -32,27 +34,23 @@ in the root directory of this source code. Docker Compose relies
 on this file to properly launch the defined services. Most of the environmental
 variables have been defined with some values, you can make updates to 
 them but take not of the following
-- DB_HOST=mysqldb (This is mandatory, if you change this you must also 
+- DB_HOST=database (This is mandatory, if you change this you must also 
 change the definition in the docker-compose service name for the MySQL db)
-- APP_KEY (this is empty by default, not to worry Laravel 
-will automatically generate its value when you initiate php artisan:key generate command in step 4)
 
 ##### Step 3: 
 Start up all the services by running this command: 
 - docker-compose up -d
 
 ##### Step 4: 
-Install all the dependencies needed to start the app
-- docker-compose exec appservice composer install (This installs all the apps dependencies into a vendors folder)
-- docker-compose exec appservice php artisan:key generate (This creates a value for APP_KEY env variable)
-- docker-compose exec appservice php artisan:migrate (this migrates tables into the database)
+Create tables from predefined schemas by running the migration command.
+- docker-compose exec appservice php artisan:migrate
 
 
 ##### Step 5: 
 Setup is complete, you can navigate to you browser and type in this url
 - http://localhost:8020
 
-You should be able to see a page served.
+You should be able to see a page served showing details of the endpoints like below.
 
 ### 1.4 Endpoints
 This app contains 2 endpoints

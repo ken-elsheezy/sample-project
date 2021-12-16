@@ -10,17 +10,6 @@ services:
     networks:
       - sample-project-docker-network
 
-  keygen:
-    image: chadubab/sample-project
-    container_name: sample-project-keygen
-    working_dir: /var/www/html/
-    command: php artisan key:generate
-    volumes:
-      - ./:/var/www/html/
-    depends_on:
-      - composerinstall
-    networks:
-      - sample-project-docker-network
 
   appservice:
     image: chadubab/sample-project
@@ -52,6 +41,7 @@ services:
     networks:
       - sample-project-docker-network
 
+
   database:
     image: mysql:5.7
     container_name: database
@@ -71,6 +61,7 @@ services:
       - composerinstall
     networks:
       - sample-project-docker-network
+
 
 networks:
   sample-project-docker-network:

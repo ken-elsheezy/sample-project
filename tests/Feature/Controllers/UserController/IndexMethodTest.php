@@ -15,7 +15,7 @@ class IndexMethodTest extends TestCase
          */
         $response = $this->json(
             'POST',
-            '/v1/user',
+            '/api/v1/user',
             [
                 'first_name' => 'Mr',
                 'last_name' => 'Bob',
@@ -37,7 +37,7 @@ class IndexMethodTest extends TestCase
 
         $response = $this->json(
             'GET',
-            '/v1/user/' . $id,
+            '/api/v1/user/' . $id,
             []
         );
 
@@ -56,7 +56,7 @@ class IndexMethodTest extends TestCase
 
         $response = $this->json(
             'GET',
-            '/v1/user/' . $id,
+            '/api/v1/user/' . $id,
             []
         );
 

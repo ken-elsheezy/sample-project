@@ -26,7 +26,7 @@ class CreateMethodTest extends TestCase
          */
         $response = $this->json(
             'POST',
-            '/v1/user',
+            '/api/v1/user',
             [
                 'first_name' => 'Mr',
                 'last_name' => 'Bob',
@@ -63,7 +63,7 @@ class CreateMethodTest extends TestCase
          */
         $response = $this->json(
             'POST',
-            '/v1/user',
+            '/api/v1/user',
             [
                 'first_name' => 'Mr',
                 'last_name' => 'Bob',
@@ -80,7 +80,7 @@ class CreateMethodTest extends TestCase
          */
         $response = $this->json(
             'POST',
-            '/v1/user',
+            '/api/v1/user',
             [
                 'first_name' => 'Mr',
                 'last_name' => 'Bob',

@@ -1,6 +1,6 @@
-#1.0 SETUP
+# 1.0 SETUP
 
-###1.1 Prerequisite
+### 1.1 Prerequisite
 
 To setup this app you will need to have the following programs listed 
 below installed on your computer.
@@ -20,13 +20,13 @@ The docker-compose.yml file essentially contains 2 services
 
 ### 1.3 Procedure
 
-#####Step 1:
+##### Step 1:
 Now that you have the source code, docker and docker-compose installed on
 your computer, navigate to the folder root of the source code you unzipped or
 cloned from github. You should see a docker-compose.yml file among
 the files in the directory.
 
-#####Step 2: 
+##### Step 2: 
 Create a .env file from the .env.example sample file located 
 in the root directory of this source code. Docker Compose relies
 on this file to properly launch the defined services. Most of the environmental
@@ -37,24 +37,24 @@ change the definition in the docker-compose service name for the MySQL db)
 - APP_KEY (this is empty by default, not to worry Laravel 
 will automatically generate its value when you initiate php artisan:key generate command in step 4)
 
-#####Step 3: 
+##### Step 3: 
 Start up all the services by running this command: 
 - docker-compose up -d
 
-#####Step 4: 
+##### Step 4: 
 Install all the dependencies needed to start the app
 - docker-compose exec appservice composer install (This installs all the apps dependencies into a vendors folder)
 - docker-compose exec appservice php artisan:key generate (This creates a value for APP_KEY env variable)
 - docker-compose exec appservice php artisan:migrate (this migrates tables into the database)
 
 
-#####Step 5: 
+##### Step 5: 
 Setup is complete, you can navigate to you browser and type in this url
 - http://localhost:8020
 
 You should be able to see a page served.
 
-###1.4 Endpoints
+### 1.4 Endpoints
 This app contains 2 endpoints
 - Endpoint to create a User
     - cURL - http://localhost:8020/api/v1/user.

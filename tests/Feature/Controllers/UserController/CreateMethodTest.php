@@ -41,7 +41,7 @@ class CreateMethodTest extends TestCase
          * Checking the payload to ensure that the
          * response content is exactly what we expect.
          */
-        $result = json_decode($response->content());
+        $result = (array) json_decode($response->content());
 
         $this->assertArrayHasKey('user', $result['data']);
 

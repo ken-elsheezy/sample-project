@@ -31,7 +31,7 @@ class IndexMethodTest extends TestCase
          * the user in the data attribute, we shall extract
          * the id and  proceed to retrieve this new user.
          */
-        $result = (array) json_decode($response->content());
+        $result = (array) json_decode($response->content(), true);
 
         $id = $result['data']['user']['id'];
 

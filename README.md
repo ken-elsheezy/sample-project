@@ -56,14 +56,20 @@ You should be able to see a page served.
 
 ###1.4 Endpoints
 This app contains 2 endpoints
-- POST - Endpoint to create a User
-    - http://localhost:8020/api/v1/user 
-        - [param] first_name
-        - [param] last_name
-        - [param] email
-        - [param] password
-- GET - Endpoint to retrieve a user
-    - http://localhost:8020/api/v1/user/:id
-        - [param] id (substitute user id for :id)
+- Endpoint to create a User
+    - cURL - http://localhost:8020/api/v1/user.
+    - H -  "Content-Type: application/json"
+    - d -
+        - first_name
+        - last_name
+        - email
+        - password
+    - X - POST    
+
+- Endpoint to retrieve a User.
+    - cURL -  http://localhost:8020/api/v1/user/:id
+    - X - GET
+        
+
 
 
